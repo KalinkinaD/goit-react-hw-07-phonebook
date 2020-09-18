@@ -1,0 +1,8 @@
+.contact {
+  display: flex;
+  align-items: center;
+}
+
+.contactDescr {
+  margin-right: 10px;
+}
