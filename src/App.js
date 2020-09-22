@@ -6,6 +6,7 @@ import Filter from "./Filter";
 import Loader from "react-loader-spinner";
 import { Logo } from "./components/Logo";
 import contactsOperations from "./redux/contacts/contactsOperations";
+import contactsSelectors from "./redux/contacts/contactsSelectors";
 
 class App extends Component {
   componentDidMount() {
@@ -28,12 +29,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isLoadingContacts: state.contacts.loading,
-});
-
-const mapDispatchToProps = {
-  onFetchContacts: contactsOperations.fetchContacts,
+const mapStateToProps = (state) => {
+  return {
+    contacts: contactsSelectors.getContact(state),
+    isLoadingContacts: contactsSelectors.getLoading(state),
+  };
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchContacts: () => dispatch(contactsOperations.fetchContacts()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

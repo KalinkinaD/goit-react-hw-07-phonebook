@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./ContactListElem.module.css";
-import { connect } from "react-redux";
-import ContactsOperations from "../../../redux/contacts/contactsOperations";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,17 +33,4 @@ const ContactListElem = ({ contact: { name, number }, deleteContact }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const item = state.contacts.items.find((item) => item.id === ownProps.id);
-
-  return {
-    ...item,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  deleteContact: () =>
-    dispatch(ContactsOperations.deleteContact(ownProps.contact.id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactListElem);
+export default ContactListElem;

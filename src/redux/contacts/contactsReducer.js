@@ -9,13 +9,13 @@ const onDelete = (state, action) =>
   state.filter((contact) => contact.id !== action.payload);
 
 const items = createReducer([], {
-  [ContactActions.fetchContactSuccess]: (state, action) => action.payload,
+  [ContactActions.fetchContactSuccess]: (_, action) => action.payload,
   [ContactActions.addContactSuccess]: onAdd,
   [ContactActions.deleteContactSuccess]: onDelete,
 });
 
 const filter = createReducer("", {
-  [ContactActions.setFilter]: (state, action) => action.payload,
+  [ContactActions.setFilter]: (_, action) => action.payload,
 });
 
 const loading = createReducer(false, {

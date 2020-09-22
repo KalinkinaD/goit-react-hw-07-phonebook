@@ -1,9 +1,10 @@
 import React from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import ContactListElem from "./ContactListElem/ContactListElem";
+import ContactListElem from "./ContactListElem/ContactListItemContainer";
 import styles from "./ContactList.module.css";
 
 import { connect } from "react-redux";
+import contactSelectors from "../../redux/contacts/contactsSelectors";
 
 const itemMove = {
   enter: styles.enter,
@@ -13,6 +14,8 @@ const itemMove = {
 };
 
 const ContactList = ({ contacts }) => {
+  console.log("ContactList re-render");
+
   return (
     <TransitionGroup component="ul">
       {contacts &&
@@ -26,16 +29,11 @@ const ContactList = ({ contacts }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { items, filter } = state.contacts;
-  const normalizedFilter = filter.toLowerCase();
-
-  const visibleContacts = items.filter((contact) =>
-    contact.name.toLowerCase().includes(normalizedFilter)
-  );
-
-  return {
-    contacts: visibleContacts,
-  };
+  if (state.contacts) {
+    return {
+      contacts: contactSelectors.getFilteredContacts(state),
+    };
+  }
 };
 
 export default connect(mapStateToProps)(ContactList);

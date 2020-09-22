@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import contactsActions from "./redux/contacts/contactsActions";
+import contactsSelectors from "./redux/contacts/contactsSelectors";
 
 const Filter = ({ value, onChangeFilter }) => {
   return (
@@ -16,7 +17,6 @@ const Filter = ({ value, onChangeFilter }) => {
           name="filter"
           className="FilterInput"
           placeholder="start typing searching name..."
-          // id="filterInput"
         />
       </label>
     </form>
@@ -30,7 +30,7 @@ Filter.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    value: state.contacts.filter,
+    value: contactsSelectors.getFilter(state),
   };
 };
 
